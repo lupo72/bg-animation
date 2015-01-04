@@ -87,6 +87,7 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
             [0, 0, 0, 1, 1, 1, 0, 0],
             [0, 1, 1, 0, 0, 0, 0, 0]];
         
+        /** lets sprite move towards mouse pointer - pause sprite a couple of seconds when mouseposition is reached */
         this.walkToMouse = function() 
         {
             if (self.ignoreMouse) {
@@ -113,6 +114,7 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
         }; 
         // END Method walkToMouse
 
+        /** (auto) move sprite */
         this.autoMove = function() 
         {
             var x = self.x, y = self.y;
@@ -146,6 +148,7 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
         }; 
         // END autoMove method
 
+        /** clear / overpaint Sprites old position */
         this.clearCanvasPos = function() 
         {
             var stepX = 2;
@@ -164,7 +167,8 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
                 }
             }            
         };
-        
+
+        /** keep sprite in canvas dimensions */
         this.checkBounds = function() 
         {
             if (self.x < -32 ) {
@@ -195,7 +199,7 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
                 return;
             }
         };
-
+        /** draws sprite while moving */
         this.draw = function() 
         {
             var stepX = 2;
@@ -222,7 +226,7 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
             }
         };
         
-        
+        /** draws sprite while standing */
         this.drawIdle = function() 
         {
             var stepX = 2;
@@ -241,9 +245,11 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
             }
         };
 
+        /**get color from val in spritesheet array at x,y */
         this.getColor = function(param) 
         {
             switch (param) {
+                // lightgrey - body
                 case 1:
                     switch(self.index){
                         case 1:
@@ -261,6 +267,7 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
                             
                     }
                     break;
+                // darkgrey - ribs
                 case 2:
                     switch(self.index) {
                         case 1:
@@ -276,12 +283,14 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
                             return "rgb(175,175,175)";
                     }
                     break;
+                // yellow - eyes
                 case 3:
                     return "rgb(255,175,0)";
                     break;
             }
         };
-
+        
+        /** get Sprites stored position from localStorage */
         this.getStoredPosition = function() 
         {
             if (Modernizr.localstorage) {
@@ -290,6 +299,7 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
             }
         };
 
+        /** init Sprites position */
         this.initPosition = function(ox,oy) 
         {
             this.getStoredPosition();
@@ -307,6 +317,7 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
 
         };
 
+        /** pause Sprite */
         this.pause = function() 
         {
             this.clearCanvasPos();
@@ -316,40 +327,6 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
             this.nextAnimationCycle = new Date().getTime() + this.idleTime;
         };
         
-        this.move = function(evt) {
-            var x = self.x, y = self.y;
-            switch (evt.keyCode) {
-                case 37:
-                    x -= 2;
-                    break;
-                case 39:
-                    x += 2;
-                    break;
-                case 38:
-                    y -= 2;
-                    break;
-                case 40:
-                    y += 2;
-                    break;
-            }
-            if (self.x !== x || self.y !== y) {
-                self.clearCanvasPos();
-                self.autoplay = false;
-
-                if (evt.type === 'keyup') {
-                    self.autoplay = true;
-                    self.nextAnimationCycle = new Date().getTime() + 2000;
-                    self.moveIndex = 0;
-                }
-            }
-
-            self.x = x;
-            self.y = y;
-            self.draw();
-        };        
-        
-    };
-    
     SkeletonSprite.prototype = new BaseSprite();
     
     $('html').bind('mousemove', function(evt) 
