@@ -2,6 +2,9 @@
 Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de 
 @author Wolfgang Pfeiffer (Lupo72)
 @version 1.2 - stable
+
+** References used:
+* http://stackoverflow.com/questions/9300590/html5-coordinates-of-a-scaled-canvas-element
 */
 
 (function() {
@@ -157,41 +160,10 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
                     if (self.sheet[moveIdx][indexY / stepY][indexX / stepX] !== 0) {
                         self.ctx.fillStyle = 'rgb(255,255,255)';
                         self.ctx.fillRect(indexX + self.x, indexY + self.y, width, height);
-//                        if (!self.overlapsOtherSprite(indexX + self.x, indexY + self.y)) {
-//                            self.ctx.fillRect(indexX + self.x, indexY + self.y, width, height);
-//                        }
                     }
                 }
             }            
         };
-        
-//        this.overlapsOtherSprite = function(indexX, indexY) {
-//            return false;
-//            var selfBounds = self.getBounds();
-//            for (var idx=0;idx < skeletons.length-1;idx++) {
-//                if (self.name !== skeletons[idx].name) {
-//                    var otherBounds = skeletons[idx].getBounds();
-//                    if ( 
-//                        (otherBounds.x1 < indexX && otherBounds.x2 > indexX) 
-//                        && 
-//                        (otherBounds.y1 < indexY && otherBounds.y2 > indexY)
-//                       ) {
-//                            return true;
-//                       }
-//                   }
-//            }
-//            return false;
-//        };
-        
-//        this.getBounds = function() {
-//            var startX = self.x;
-//            var startY = self.y;
-//            var width  = 16;
-//            var height = 36;
-//            var endX = startX + width;
-//            var endY = startY + height;
-//            return { x1: startX, y1: startY, x2: endX, y2:endY };
-//        };
         
         this.checkBounds = function() 
         {
@@ -371,7 +343,6 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
                 }
             }
 
-
             self.x = x;
             self.y = y;
             self.draw();
@@ -425,4 +396,3 @@ Hintergrund Animation für meine private Homepage wolfgangpfeiffer.de
 
 })();
 
-// * http://stackoverflow.com/questions/9300590/html5-coordinates-of-a-scaled-canvas-element
